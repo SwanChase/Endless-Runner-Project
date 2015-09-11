@@ -46,8 +46,10 @@
 	</Reference>
   </ItemGroup>
   <ItemGroup>
-     <Compile Include="Assets\Scripts\BackgroundMovment.cs" />
-     <Compile Include="Assets\Scripts\Movement.cs" />
+     <Compile Include="Assets\Scripts\AutoMovment.cs" />
+     <Compile Include="Assets\Scripts\ChunkManager.cs" />
+     <Compile Include="Assets\Scripts\LoopingBackground.cs" />
+     <Compile Include="Assets\Scripts\PlayerMovement.cs" />
      <None Include="Assets\Standard Assets\Effects\GlassRefraction\Shaders\GlassStainedBumpDistort.shader" />
      <None Include="Assets\Standard Assets\Effects\ImageEffects\Shaders\_BloomAndFlares\BlendOneOne.shader" />
      <None Include="Assets\Standard Assets\Effects\ImageEffects\Shaders\NoiseEffectShaderRGB.shader" />
