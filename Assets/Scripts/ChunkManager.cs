@@ -1,4 +1,6 @@
-﻿using UnityEngine;
+﻿
+
+using UnityEngine;
 using System.Collections;
 using System.Collections.Generic;
 
@@ -9,14 +11,10 @@ public class ChunkManager : MonoBehaviour
 
     //screen width in game unit
     private float m_screenWidthGameUnits;
-
-    public float chunkSpeed;
-
-    public GameObject[] chunks;
+    private bool removed = false;
+    public float difficulty;
 
     private List<GameObject> m_chunkClones = new List<GameObject>();
-
-
 
     void Awake()
     {
@@ -25,7 +23,8 @@ public class ChunkManager : MonoBehaviour
 
     void Start()
     {
-        for (int i = 0; i < 10; i++)
+        difficulty = 0.5f;
+        for (int i = 0; i < 4; i++)
         {
             m_chunkClones.Add(getRandomChunk(Vector3.zero));
         }
@@ -49,7 +48,27 @@ public class ChunkManager : MonoBehaviour
 
     void Update()
     {
-        moveChunk(this.gameObject, chunkSpeed);
+        //if(m_chunkClones[0] != null){
+        difficulty += 0.0001f;
+        if (removed)
+        {
+            m_chunkClones.Add(getRandomChunk(Vector3.zero));
+            removed = false;
+        }
+
+        sortChunks(m_chunkClones);
+        for (int i = (m_chunkClones.Count - 1); i > -1; i--)
+        {
+            //Debug.Log("ayy");
+            if (checkBoundsChunk(m_chunkClones[i]))
+            {
+                Destroy(m_chunkClones[i]);
+                m_chunkClones.RemoveAt(i);
+                removed = true;
+            }
+            moveChunk(m_chunkClones[i], difficulty);
+        }
+        //}
         //check of alle chunks nog binne scherm zijn
         //delete de chunks die buiten het scherm zijn
         //beweeg alle chunks
@@ -144,3 +163,4 @@ public class ChunkManager : MonoBehaviour
         return (Camera.main.orthographicSize / Camera.main.pixelHeight * Camera.main.pixelWidth);
     }
 }
+
